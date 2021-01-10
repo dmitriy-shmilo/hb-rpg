@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://World/Bush.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/GrassBackground.png" type="Texture" id=3]
 [ext_resource path="res://World/dirt_wall.tres" type="TileSet" id=4]
 [ext_resource path="res://World/dirt_road.tres" type="TileSet" id=5]
+[ext_resource path="res://World/Grass.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Node2D"]
 
@@ -32,11 +33,33 @@ tile_data = PoolIntArray( -65536, 1, 4, -65535, 1, 196609, -65534, 1, 6, -65533,
 [node name=" Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 202, 82 )
 
-[node name="StaticBody2D" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 133, 125 )
+[node name="Bushes" type="YSort" parent="YSort"]
 
-[node name="StaticBody2D2" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 72, 67 )
+[node name="Bush" parent="YSort/Bushes" instance=ExtResource( 1 )]
+position = Vector2( 207, 54 )
 
-[node name="StaticBody2D3" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 156, 35 )
+[node name="Bush2" parent="YSort/Bushes" instance=ExtResource( 1 )]
+position = Vector2( 239, 181 )
+
+[node name="Bush3" parent="YSort/Bushes" instance=ExtResource( 1 )]
+position = Vector2( 272, 180 )
+
+[node name="Bush4" parent="YSort/Bushes" instance=ExtResource( 1 )]
+position = Vector2( 35, 154 )
+
+[node name="Grass" type="YSort" parent="YSort"]
+
+[node name="Grass" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 70, 142 )
+
+[node name="Grass2" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 127, 100 )
+
+[node name="Grass3" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 127, 120 )
+
+[node name="Grass4" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 108, 99 )
+
+[node name="Grass5" parent="YSort/Grass" instance=ExtResource( 6 )]
+position = Vector2( 47, 4 )

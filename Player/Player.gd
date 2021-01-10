@@ -18,7 +18,7 @@ onready var animationState = $AnimationTree.get("parameters/playback")
 func _ready():
 	animationTree.active = true
 	
-func _physics_process(delta):
+func _process(delta):
 	match state:
 		STATE_MOVE:
 			move_state(delta)
