@@ -639,10 +639,10 @@ tree_root = SubResource( 33 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 34 )
-parameters/Attack/blend_position = Vector2( -0.990942, 0.00287199 )
-parameters/Idle/blend_position = Vector2( -0.280797, 0.495961 )
-parameters/Roll/blend_position = Vector2( 0.00555551, -0.627897 )
-parameters/Run/blend_position = Vector2( 0.0280797, -0.260097 )
+parameters/Attack/blend_position = Vector2( 0, 1 )
+parameters/Idle/blend_position = Vector2( 0, 1 )
+parameters/Roll/blend_position = Vector2( 0, 1 )
+parameters/Run/blend_position = Vector2( 0, 1 )
 
 [node name="SwordHitboxPivot" type="Position2D" parent="."]
 position = Vector2( 0, -4 )
