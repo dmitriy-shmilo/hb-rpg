@@ -11,6 +11,7 @@ const deathEffectScene = preload("res://Effects/EnemyDeathEffect.tscn")
 export var acceleration = 300
 export var max_speed = 50
 export var friction = 200
+export(float) var wander_target_threshold = 5
 
 var state = STATE_CHASE
 var velocity = Vector2.ZERO
@@ -21,6 +22,10 @@ onready var animatedSprite = $AnimatedSprite
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var enenmyHurtbox = $EnemyHurtbox
 onready var softCollision = $SoftCollision
+onready var wanderController = $WanderController
+
+func _ready():
+	state = pick_random_state([STATE_IDLE, STATE_WANDER])
 
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, 200 * delta)
@@ -30,15 +35,22 @@ func _physics_process(delta):
 		STATE_IDLE:
 			velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 			seek_player()
-
+			if wanderController.get_time_left() == 0:
+				update_wander()
+	
 		STATE_WANDER:
-			pass
+			seek_player()
+			if wanderController.get_time_left() == 0 \
+				|| global_position.distance_to(wanderController.target_position) <= wander_target_threshold:
+				update_wander()
+
+			accelerate_towards(wanderController.target_position, delta)
+
 		STATE_CHASE:
 			var player = playerDetectionZone.player
 			
 			if player != null:
-				var direction = (player.global_position - global_position).normalized()
-				velocity = velocity.move_toward(direction * max_speed, acceleration * delta)
+				accelerate_towards(player.global_position, delta)
 			else:
 				state = STATE_IDLE
 	
@@ -47,6 +59,17 @@ func _physics_process(delta):
 	
 	animatedSprite.flip_h = velocity.x < 0
 	velocity = move_and_slide(velocity)
+
+func pick_random_state(state_list: Array):
+	return state_list[randi() % state_list.size()]
+
+func update_wander():
+	state = pick_random_state([STATE_IDLE, STATE_WANDER])
+	wanderController.start_wander_timer(rand_range(1, 3)) 
+
+func accelerate_towards(point: Vector2, delta: float):
+	var direction = global_position.direction_to(point)
+	velocity = velocity.move_toward(direction * max_speed, acceleration * delta)
 
 func seek_player():
 	if playerDetectionZone.can_see_player():
