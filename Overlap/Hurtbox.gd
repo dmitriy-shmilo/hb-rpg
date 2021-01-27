@@ -1,3 +1,4 @@
+class_name Hurtbox
 extends Area2D
 
 signal invincibility_started
@@ -5,8 +6,8 @@ signal invincibility_ended
 
 const HIT_EFFECT = preload("res://Effects/HitEffect.tscn")
 
-onready var _timer = $Timer
-onready var _shape = $CollisionShape2D
+onready var _timer: Timer = $Timer
+onready var _shape: CollisionShape2D = $CollisionShape2D
 
 var invincible = false setget _set_invincible
 
@@ -24,7 +25,7 @@ func create_hit_effect():
 	get_tree().current_scene.add_child(effect)
 
 
-func start_invincibility(duration):
+func start_invincibility(duration: float):
 	self.invincible = true
 	_timer.start(duration)
 

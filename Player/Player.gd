@@ -1,3 +1,4 @@
+class_name Player
 extends KinematicBody2D
 
 enum {
@@ -16,11 +17,11 @@ var _velocity = Vector2.ZERO
 var _roll_vector = Vector2.DOWN
 var _stats = PlayerStats
 
-onready var _animation_tree = $AnimationTree
-onready var _animation_state = $AnimationTree.get("parameters/playback")
-onready var _sword_hitbox = $SwordHitboxPivot/SwordHitbox
-onready var _player_hurtbox = $PlayerHurtbox
-onready var _blink_animation_player = $BlinkAnimationPlayer
+onready var _animation_tree: AnimationTree = $AnimationTree
+onready var _animation_state: AnimationNodeStateMachinePlayback = $AnimationTree.get("parameters/playback")
+onready var _sword_hitbox: SwordHitbox = $SwordHitboxPivot/SwordHitbox
+onready var _player_hurtbox: Hurtbox = $PlayerHurtbox
+onready var _blink_animation_player: AnimationPlayer = $BlinkAnimationPlayer
 
 func _ready():
 	randomize()

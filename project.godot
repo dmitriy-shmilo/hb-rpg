@@ -8,9 +8,86 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Bat",
+"language": "GDScript",
+"path": "res://Enemies/Bat.gd"
+}, {
+"base": "AnimatedSprite",
+"class": "Effect",
+"language": "GDScript",
+"path": "res://Effects/Effect.gd"
+}, {
+"base": "Node2D",
+"class": "Grass",
+"language": "GDScript",
+"path": "res://World/Grass.gd"
+}, {
+"base": "Control",
+"class": "HealthUI",
+"language": "GDScript",
+"path": "res://UI/HealthUI.gd"
+}, {
+"base": "Area2D",
+"class": "Hitbox",
+"language": "GDScript",
+"path": "res://Overlap/Hitbox.gd"
+}, {
+"base": "Area2D",
+"class": "Hurtbox",
+"language": "GDScript",
+"path": "res://Overlap/Hurtbox.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player/Player.gd"
+}, {
+"base": "Area2D",
+"class": "PlayerDetectionZone",
+"language": "GDScript",
+"path": "res://Enemies/PlayerDetectionZone.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": "PlayerHurtSound",
+"language": "GDScript",
+"path": "res://Player/PlayerHurtSound.gd"
+}, {
+"base": "Area2D",
+"class": "SoftCollision",
+"language": "GDScript",
+"path": "res://Overlap/SoftCollision.gd"
+}, {
+"base": "Node",
+"class": "Stats",
+"language": "GDScript",
+"path": "res://Stats.gd"
+}, {
+"base": "Hitbox",
+"class": "SwordHitbox",
+"language": "GDScript",
+"path": "res://Player/SwordHitbox.gd"
+}, {
+"base": "Node2D",
+"class": "WanderController",
+"language": "GDScript",
+"path": "res://Enemies/WanderController.gd"
+} ]
 _global_script_class_icons={
-
+"Bat": "",
+"Effect": "",
+"Grass": "",
+"HealthUI": "",
+"Hitbox": "",
+"Hurtbox": "",
+"Player": "",
+"PlayerDetectionZone": "",
+"PlayerHurtSound": "",
+"SoftCollision": "",
+"Stats": "",
+"SwordHitbox": "",
+"WanderController": ""
 }
 
 [application]

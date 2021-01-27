@@ -1,3 +1,4 @@
+class_name Grass
 extends Node2D
 
 const GRASS_EFFECT = preload("res://Effects/GrassEffect.tscn")

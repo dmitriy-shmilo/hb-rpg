@@ -1,18 +1,19 @@
+class_name HealthUI
 extends Control
 
-var hearts = 4 setget set_hearts
-var max_hearts = 4 setget set_max_hearts
+var hearts: int = 4 setget set_hearts
+var max_hearts: int = 4 setget set_max_hearts
 
-onready var _heart_ui_full = $HeartUIFull
-onready var _heart_ui_empty = $HeartUIEmpty
+onready var _heart_ui_full: TextureRect = $HeartUIFull
+onready var _heart_ui_empty: TextureRect = $HeartUIEmpty
 
-func set_hearts(value):
-	hearts = clamp(value, 0, max_hearts)
+func set_hearts(value: int):
+	hearts = int(clamp(value, 0, max_hearts))
 	if _heart_ui_full != null:
 		_heart_ui_full.rect_size.x = hearts * 15
 	
-func set_max_hearts(value):
-	max_hearts = max(1, value)
+func set_max_hearts(value: int):
+	max_hearts = int(max(1, value))
 	if _heart_ui_empty != null:
 		_heart_ui_empty.rect_size.x = max_hearts * 15
 	

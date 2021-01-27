@@ -1,3 +1,4 @@
+class_name Bat
 extends KinematicBody2D
 
 enum {
@@ -8,22 +9,22 @@ enum {
 
 const DEATH_EFFECT = preload("res://Effects/EnemyDeathEffect.tscn")
 
-export var acceleration = 300
-export var max_speed = 50
-export var friction = 200
+export(float) var acceleration = 300
+export(float) var max_speed = 50
+export(float) var friction = 200
 export(float) var wander_target_threshold = 5
 
 var _state = STATE_CHASE
 var _velocity = Vector2.ZERO
 var _knockback = Vector2.ZERO
 
-onready var _stats = $Stats
-onready var _animated_sprite = $AnimatedSprite
-onready var _player_detection_zone = $PlayerDetectionZone
-onready var _enemy_hurtbox = $EnemyHurtbox
-onready var _soft_collision = $SoftCollision
-onready var _wander_controller = $WanderController
-onready var _blink_animation_player = $BlinkAnimationPlayer
+onready var _stats: Stats = $Stats
+onready var _animated_sprite: AnimatedSprite = $AnimatedSprite
+onready var _player_detection_zone: PlayerDetectionZone = $PlayerDetectionZone
+onready var _enemy_hurtbox: Hurtbox = $EnemyHurtbox
+onready var _soft_collision: SoftCollision = $SoftCollision
+onready var _wander_controller: WanderController = $WanderController
+onready var _blink_animation_player: AnimationPlayer = $BlinkAnimationPlayer
 
 func _ready():
 	_state = _pick_random_state([STATE_IDLE, STATE_WANDER])
@@ -82,14 +83,14 @@ func _seek_player():
 		_state = STATE_CHASE
 
 
-func _on_Area2D_area_entered(area):
+func _on_Area2D_area_entered(area: SwordHitbox):
 	_knockback = area.knockback_vector * 120
 	_stats.health -= area.damage
 	_enemy_hurtbox.create_hit_effect()
 	_enemy_hurtbox.start_invincibility(0.4)
 
 
-func _on_Stats_health_changed(value):
+func _on_Stats_health_changed(value: int):
 	if value <= 0:
 		var deathEffect = DEATH_EFFECT.instance()
 		get_parent().add_child(deathEffect)
