@@ -87,6 +87,9 @@ func move():
 	velocity = move_and_slide(velocity)
 
 func _on_PlayerHurtbox_area_entered(area):
+	if state == STATE_ROLL:
+		return
+
 	stats.health -= area.damage
 	playerHurtbox.create_hit_effect()
 	playerHurtbox.start_invincibility(1.0)
