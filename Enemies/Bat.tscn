@@ -147,8 +147,8 @@ shape = SubResource( 12 )
 anims/Start = SubResource( 13 )
 anims/Stop = SubResource( 14 )
 [connection signal="area_entered" from="EnemyHurtbox" to="." method="_on_Area2D_area_entered"]
-[connection signal="invincible_end" from="EnemyHurtbox" to="." method="_on_EnemyHurtbox_invincible_end"]
-[connection signal="invincible_start" from="EnemyHurtbox" to="." method="_on_EnemyHurtbox_invincible_start"]
+[connection signal="invincibility_ended" from="EnemyHurtbox" to="." method="_on_EnemyHurtbox_invincibility_ended"]
+[connection signal="invincibility_started" from="EnemyHurtbox" to="." method="_on_EnemyHurtbox_invincibility_started"]
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
 
 [editable path="EnemyHurtbox"]

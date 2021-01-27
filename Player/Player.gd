@@ -1,42 +1,43 @@
 extends KinematicBody2D
 
-const MAX_SPEED = 80
-const ACCELERATION = 480
-const FRICTION = 480
-
-const PlayerHurtSound = preload("res://Player/PlayerHurtSound.tscn")
-
 enum {
 	STATE_MOVE,
 	STATE_ROLL,
-	STATE_ATTACK
+	STATE_ATTACK,
 }
 
-var state = STATE_MOVE
-var velocity = Vector2.ZERO
-var roll_vector = Vector2.DOWN
-var stats = PlayerStats
+const MAX_SPEED = 80
+const ACCELERATION = 480
+const FRICTION = 480
+const PLAYER_HURT_SOUND = preload("res://Player/PlayerHurtSound.tscn")
 
-onready var animationTree = $AnimationTree
-onready var animationState = $AnimationTree.get("parameters/playback")
-onready var swordHitbox = $SwordHitboxPivot/SwordHitbox
-onready var playerHurtbox = $PlayerHurtbox
-onready var blinkAnimationPlayer = $BlinkAnimationPlayer
+var _state = STATE_MOVE
+var _velocity = Vector2.ZERO
+var _roll_vector = Vector2.DOWN
+var _stats = PlayerStats
+
+onready var _animation_tree = $AnimationTree
+onready var _animation_state = $AnimationTree.get("parameters/playback")
+onready var _sword_hitbox = $SwordHitboxPivot/SwordHitbox
+onready var _player_hurtbox = $PlayerHurtbox
+onready var _blink_animation_player = $BlinkAnimationPlayer
 
 func _ready():
 	randomize()
-	animationTree.active = true
-	swordHitbox.knockback_vector = roll_vector
-	stats.connect("no_health", self, "_on_PlayerStats_no_health")
-	
+	_animation_tree.active = true
+	_sword_hitbox.knockback_vector = _roll_vector
+	_stats.connect("no_health", self, "_on_PlayerStats_no_health")
+
+
 func _process(delta):
-	match state:
+	match _state:
 		STATE_MOVE:
 			move_state(delta)
 		STATE_ROLL:
 			roll_state()
 		STATE_ATTACK:
 			attack_state()
+
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO
@@ -47,60 +48,69 @@ func move_state(delta):
 	input_vector = input_vector.normalized()
 	
 	if input_vector != Vector2.ZERO:
-		roll_vector = input_vector
-		swordHitbox.knockback_vector = roll_vector
-		velocity = velocity.move_toward(input_vector * MAX_SPEED, \
+		_roll_vector = input_vector
+		_sword_hitbox.knockback_vector = _roll_vector
+		_velocity = _velocity.move_toward(input_vector * MAX_SPEED, \
 			ACCELERATION * delta)
-		animationTree.set("parameters/Idle/blend_position", input_vector)
-		animationTree.set("parameters/Run/blend_position", input_vector)
-		animationTree.set("parameters/Attack/blend_position", input_vector)
-		animationTree.set("parameters/Roll/blend_position", input_vector)
-		animationState.travel("Run")
+		_animation_tree.set("parameters/Idle/blend_position", input_vector)
+		_animation_tree.set("parameters/Run/blend_position", input_vector)
+		_animation_tree.set("parameters/Attack/blend_position", input_vector)
+		_animation_tree.set("parameters/Roll/blend_position", input_vector)
+		_animation_state.travel("Run")
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
-		animationState.travel("Idle")
+		_velocity = _velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+		_animation_state.travel("Idle")
 	
 	move()
 	
 	if Input.is_action_just_pressed("attack"):
-		state = STATE_ATTACK
+		_state = STATE_ATTACK
 	elif Input.is_action_just_pressed("roll"):
-		state = STATE_ROLL
+		_state = STATE_ROLL
+
 
 func roll_state():
-	velocity = roll_vector * MAX_SPEED * 1.5
-	animationState.travel("Roll")
+	_velocity = _roll_vector * MAX_SPEED * 1.5
+	_animation_state.travel("Roll")
 	move()
-	
+
+
 func attack_state():
-	velocity = Vector2.ZERO
-	animationState.travel("Attack")
-	
+	_velocity = Vector2.ZERO
+	_animation_state.travel("Attack")
+
+
 func attack_done():
-	state = STATE_MOVE
+	_state = STATE_MOVE
+
 
 func roll_done():
-	velocity = velocity * 0.8
-	state = STATE_MOVE
+	_velocity = _velocity * 0.8
+	_state = STATE_MOVE
+
 
 func move():
-	velocity = move_and_slide(velocity)
+	_velocity = move_and_slide(_velocity)
+
 
 func _on_PlayerHurtbox_area_entered(area):
-	if state == STATE_ROLL:
+	if _state == STATE_ROLL:
 		return
 
-	stats.health -= area.damage
-	playerHurtbox.create_hit_effect()
-	playerHurtbox.start_invincibility(1.0)
-	var sound = PlayerHurtSound.instance()
+	_stats.health -= area.damage
+	_player_hurtbox.create_hit_effect()
+	_player_hurtbox.start_invincibility(1.0)
+	var sound = PLAYER_HURT_SOUND.instance()
 	get_tree().current_scene.add_child(sound)
+
 
 func _on_PlayerStats_no_health():
 	queue_free()
 
-func _on_PlayerHurtbox_invincible_start():
-	blinkAnimationPlayer.play("Start")
 
-func _on_PlayerHurtbox_invincible_end():
-	blinkAnimationPlayer.play("Stop")
+func _on_PlayerHurtbox_invincibility_started():
+	_blink_animation_player.play("Start")
+
+
+func _on_PlayerHurtbox_invincibility_ended():
+	_blink_animation_player.play("Stop")
