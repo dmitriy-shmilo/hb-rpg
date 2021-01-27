@@ -34,9 +34,9 @@ func _process(delta):
 		STATE_MOVE:
 			move_state(delta)
 		STATE_ROLL:
-			roll_state(delta)
+			roll_state()
 		STATE_ATTACK:
-			attack_state(delta)
+			attack_state()
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO
@@ -67,12 +67,12 @@ func move_state(delta):
 	elif Input.is_action_just_pressed("roll"):
 		state = STATE_ROLL
 
-func roll_state(delta):
+func roll_state():
 	velocity = roll_vector * MAX_SPEED * 1.5
 	animationState.travel("Roll")
 	move()
 	
-func attack_state(delta):
+func attack_state():
 	velocity = Vector2.ZERO
 	animationState.travel("Attack")
 	
