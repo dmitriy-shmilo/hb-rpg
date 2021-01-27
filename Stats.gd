@@ -1,6 +1,5 @@
 extends Node
 
-signal no_health
 signal health_changed(value)
 signal max_health_changed(value)
 
@@ -20,5 +19,3 @@ func _set_max_health(value):
 func _set_health(value):
 	health = clamp(value, 0, maxHealth)
 	emit_signal("health_changed", value)
-	if health <= 0:
-		emit_signal("no_health")

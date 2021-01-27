@@ -89,11 +89,12 @@ func _on_Area2D_area_entered(area):
 	_enemy_hurtbox.start_invincibility(0.4)
 
 
-func _on_Stats_no_health():
-	var deathEffect = DEATH_EFFECT.instance()
-	get_parent().add_child(deathEffect)
-	deathEffect.global_position = global_position
-	queue_free()
+func _on_Stats_health_changed(value):
+	if value <= 0:
+		var deathEffect = DEATH_EFFECT.instance()
+		get_parent().add_child(deathEffect)
+		deathEffect.global_position = global_position
+		queue_free()
 
 
 func _on_EnemyHurtbox_invincibility_started():

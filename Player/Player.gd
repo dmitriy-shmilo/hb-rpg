@@ -26,7 +26,7 @@ func _ready():
 	randomize()
 	_animation_tree.active = true
 	_sword_hitbox.knockback_vector = _roll_vector
-	_stats.connect("no_health", self, "_on_PlayerStats_no_health")
+	_stats.connect("health_changed", self, "_on_PlayerStats_health_changed")
 
 
 func _process(delta):
@@ -104,8 +104,9 @@ func _on_PlayerHurtbox_area_entered(area):
 	get_tree().current_scene.add_child(sound)
 
 
-func _on_PlayerStats_no_health():
-	queue_free()
+func _on_PlayerStats_health_changed(value):
+	if value <= 0:
+		queue_free()
 
 
 func _on_PlayerHurtbox_invincibility_started():
