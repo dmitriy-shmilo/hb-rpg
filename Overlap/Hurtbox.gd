@@ -30,6 +30,10 @@ func start_invincibility(duration: float):
 	_timer.start(duration)
 
 
+func reset():
+	self.invincible = false
+
+
 func _on_Timer_timeout():
 	self.invincible = false 
 

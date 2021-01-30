@@ -111,11 +111,11 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 8 )
 
-[node name="EnemyHurtbox" parent="." instance=ExtResource( 3 )]
+[node name="Hurtbox" parent="." instance=ExtResource( 3 )]
 scale = Vector2( 1.00577, 1 )
 collision_layer = 8
 
-[node name="CollisionShape2D" parent="EnemyHurtbox" index="0"]
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 0, -10 )
 shape = SubResource( 9 )
 
@@ -146,12 +146,12 @@ shape = SubResource( 12 )
 [node name="BlinkAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Start = SubResource( 13 )
 anims/Stop = SubResource( 14 )
-[connection signal="area_entered" from="EnemyHurtbox" to="." method="_on_Area2D_area_entered"]
-[connection signal="invincibility_ended" from="EnemyHurtbox" to="." method="_on_EnemyHurtbox_invincibility_ended"]
-[connection signal="invincibility_started" from="EnemyHurtbox" to="." method="_on_EnemyHurtbox_invincibility_started"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Area2D_area_entered"]
+[connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_ended"]
+[connection signal="invincibility_started" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_started"]
 [connection signal="health_changed" from="Stats" to="." method="_on_Stats_health_changed"]
 
-[editable path="EnemyHurtbox"]
+[editable path="Hurtbox"]
 
 [editable path="PlayerDetectionZone"]
 

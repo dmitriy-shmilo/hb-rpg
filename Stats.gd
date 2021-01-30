@@ -11,6 +11,10 @@ func _ready():
 	health = maxHealth
 
 
+func reset():
+	health = maxHealth
+
+
 func _set_max_health(value):
 	maxHealth = value
 	health = maxHealth

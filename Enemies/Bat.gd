@@ -21,7 +21,7 @@ var _knockback = Vector2.ZERO
 onready var _stats: Stats = $Stats
 onready var _animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var _player_detection_zone: PlayerDetectionZone = $PlayerDetectionZone
-onready var _enemy_hurtbox: Hurtbox = $EnemyHurtbox
+onready var _enemy_hurtbox: Hurtbox = $Hurtbox
 onready var _soft_collision: SoftCollision = $SoftCollision
 onready var _wander_controller: WanderController = $WanderController
 onready var _blink_animation_player: AnimationPlayer = $BlinkAnimationPlayer
@@ -95,12 +95,11 @@ func _on_Stats_health_changed(value: int):
 		var deathEffect = DEATH_EFFECT.instance()
 		get_parent().add_child(deathEffect)
 		deathEffect.global_position = global_position
-		queue_free()
 
 
-func _on_EnemyHurtbox_invincibility_started():
+func _on_Hurtbox_invincibility_started():
 	_blink_animation_player.play("Start")
 
 
-func _on_EnemyHurtbox_invincibility_ended():
+func _on_Hurtbox_invincibility_ended():
 	_blink_animation_player.play("Stop")
