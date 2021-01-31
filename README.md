@@ -5,5 +5,5 @@ HeartBeast's [Godot Action RPG](https://www.youtube.com/playlist?list=PL9FzW-m48
 
 # Credits
 
-Initial implementation and art by [HeartBeast](https://www.youtube.com/c/uheartbeast)
-[monogram](https://datagoblin.itch.io/monogram) font by [Vinícius Menézio](https://datagoblin.itch.io/)
+- Initial implementation and art by [HeartBeast](https://www.youtube.com/c/uheartbeast)
+- [monogram](https://datagoblin.itch.io/monogram) font by [Vinícius Menézio](https://datagoblin.itch.io/)
