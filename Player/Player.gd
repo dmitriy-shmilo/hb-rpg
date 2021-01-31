@@ -22,12 +22,18 @@ onready var _animation_state: AnimationNodeStateMachinePlayback = $AnimationTree
 onready var _sword_hitbox: SwordHitbox = $SwordHitboxPivot/SwordHitbox
 onready var _player_hurtbox: Hurtbox = $PlayerHurtbox
 onready var _blink_animation_player: AnimationPlayer = $BlinkAnimationPlayer
+onready var _floating_text: FloatingTextSpawner = $FloatingTextSpawner
 
 func _ready():
 	randomize()
 	_animation_tree.active = true
 	_sword_hitbox.knockback_vector = _roll_vector
 	_stats.connect("health_changed", self, "_on_PlayerStats_health_changed")
+	
+	for hostile in get_tree().get_nodes_in_group("hostile"):
+		var stats = hostile.get_node("Enemy/Stats") as Stats
+		var _err = stats.connect("health_changed", self, \
+				"_on_hostile_health_changed", [hostile, stats])
 
 
 func _process(delta):
@@ -92,6 +98,12 @@ func roll_done():
 
 func move():
 	_velocity = move_and_slide(_velocity)
+
+
+func _on_hostile_health_changed(health, _hostile, stats):
+	if health > 0:
+		return
+	_floating_text.display("+%d xp" % stats.exp_worth)
 
 
 func _on_PlayerHurtbox_area_entered(area):

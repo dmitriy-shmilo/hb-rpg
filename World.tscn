@@ -81,17 +81,23 @@ position = Vector2( 85, 100 )
 [node name="Tree2" parent="YSort/Trees" instance=ExtResource( 9 )]
 position = Vector2( 188, 104 )
 
-[node name="Spawner" parent="YSort" instance=ExtResource( 11 )]
+[node name="Spawner" parent="YSort" groups=[
+"hostile",
+] instance=ExtResource( 11 )]
 position = Vector2( 66, 42 )
 
 [node name="Enemy" parent="YSort/Spawner" instance=ExtResource( 7 )]
 
-[node name="Spawner2" parent="YSort" instance=ExtResource( 11 )]
+[node name="Spawner2" parent="YSort" groups=[
+"hostile",
+] instance=ExtResource( 11 )]
 position = Vector2( 328, 115 )
 
 [node name="Enemy" parent="YSort/Spawner2" instance=ExtResource( 7 )]
 
-[node name="Spawner3" parent="YSort" instance=ExtResource( 11 )]
+[node name="Spawner3" parent="YSort" groups=[
+"hostile",
+] instance=ExtResource( 11 )]
 position = Vector2( 264, 149 )
 
 [node name="Enemy" parent="YSort/Spawner3" instance=ExtResource( 7 )]

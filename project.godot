@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Effects/Effect.gd"
 }, {
+"base": "Label",
+"class": "FloatingText",
+"language": "GDScript",
+"path": "res://UI/FloatingText.gd"
+}, {
+"base": "Node2D",
+"class": "FloatingTextSpawner",
+"language": "GDScript",
+"path": "res://UI/FloatingTextSpawner.gd"
+}, {
 "base": "Node2D",
 "class": "Grass",
 "language": "GDScript",
@@ -77,6 +87,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Bat": "",
 "Effect": "",
+"FloatingText": "",
+"FloatingTextSpawner": "",
 "Grass": "",
 "HealthUI": "",
 "Hitbox": "",
