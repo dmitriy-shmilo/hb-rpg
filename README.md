@@ -7,3 +7,4 @@ HeartBeast's [Godot Action RPG](https://www.youtube.com/playlist?list=PL9FzW-m48
 
 - Initial implementation and art by [HeartBeast](https://www.youtube.com/c/uheartbeast)
 - [monogram](https://datagoblin.itch.io/monogram) font by [Vinícius Menézio](https://datagoblin.itch.io/)
+- [Golden UI](https://lpc.opengameart.org/content/golden-ui-bigger-than-ever-edition) by [Buch](https://opengameart.org/users/buch)
