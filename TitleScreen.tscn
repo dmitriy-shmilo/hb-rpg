@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://UI/TitleScreenFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://World/GrassBackground.png" type="Texture" id=2]
+[ext_resource path="res://TitleScreen.gd" type="Script" id=3]
+[ext_resource path="res://UI/MainTheme.tres" type="Theme" id=4]
+[ext_resource path="res://Player/Player.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFontData" id=1]
+antialiased = false
+font_path = "res://UI/monogram.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+outline_size = 1
+outline_color = Color( 0.192157, 0.490196, 0.313726, 1 )
+font_data = SubResource( 1 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 1173, 21, 21, 24 )
+
+[node name="TitleScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 469, 164 )
+theme = ExtResource( 4 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 130.0
+margin_right = 320.0
+margin_bottom = 164.0
+custom_constants/separation = 32
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGameButton" type="Button" parent="HBoxContainer"]
+margin_left = 56.0
+margin_right = 168.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "NEW GAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="HBoxContainer"]
+margin_left = 200.0
+margin_right = 264.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 1 )
+text = "QUIT"
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -108.0
+margin_top = 46.0
+margin_right = 108.0
+margin_bottom = 101.0
+custom_fonts/font = SubResource( 2 )
+text = "GODOT RPG"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -10.5
+margin_top = 24.0
+margin_right = 10.5
+margin_bottom = 48.0
+texture = SubResource( 3 )
+[connection signal="pressed" from="HBoxContainer/NewGameButton" to="." method="_on_NewGameButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
