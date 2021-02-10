@@ -25,9 +25,11 @@ onready var _enemy_hurtbox: Hurtbox = $Hurtbox
 onready var _soft_collision: SoftCollision = $SoftCollision
 onready var _wander_controller: WanderController = $WanderController
 onready var _blink_animation_player: AnimationPlayer = $BlinkAnimationPlayer
+onready var _emote: AnimatedSprite = $Emote
 
 func _ready():
 	_state = _pick_random_state([STATE_IDLE, STATE_WANDER])
+	_play_emotion()
 
 
 func _physics_process(delta):
@@ -56,6 +58,7 @@ func _physics_process(delta):
 				_accelerate_towards(player.global_position, delta)
 			else:
 				_state = STATE_IDLE
+				_play_emotion("Confused") # TODO: introduce player lost state
 	
 	if _soft_collision.is_colliding():
 		_velocity += _soft_collision.get_push_vector() * delta * 400
@@ -70,6 +73,7 @@ func _pick_random_state(state_list: Array):
 
 func _update_wander():
 	_state = _pick_random_state([STATE_IDLE, STATE_WANDER])
+	_play_emotion()
 	_wander_controller.start_wander_timer(rand_range(1, 3))
 
 
@@ -81,6 +85,27 @@ func _accelerate_towards(point: Vector2, delta: float):
 func _seek_player():
 	if _player_detection_zone.can_see_player():
 		_state = STATE_CHASE
+		_play_emotion()
+
+
+func _play_emotion(emotion: String = ""):
+	if _emote.visible:
+		return
+
+	_emote.visible = true
+	_emote.frame = 0
+	if emotion != "":
+		_emote.play(emotion)
+		return
+
+	match _state:
+		STATE_CHASE:
+			_emote.play("Angry")
+		STATE_WANDER:
+			_emote.play("Idle")
+		STATE_IDLE:
+			_emote.visible = false
+			_emote.stop()
 
 
 func _on_Area2D_area_entered(area: SwordHitbox):
@@ -103,3 +128,7 @@ func _on_Hurtbox_invincibility_started():
 
 func _on_Hurtbox_invincibility_ended():
 	_blink_animation_player.play("Stop")
+
+
+func _on_Emote_animation_finished():
+	_emote.visible = false
